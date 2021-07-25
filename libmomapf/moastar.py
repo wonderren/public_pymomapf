@@ -84,10 +84,10 @@ class MoAstarMAPFBase:
     self.eps = eps
     self.action_set_x = [0,-1,0,1,0]
     self.action_set_y = [0,0,-1,0,1]
-    self.all_visited_s = dict() # map state id to state (sid, nid, cost vec)
-    self.frontier_map = dict() # map nid to a set of sid
+    self.all_visited_s = dict()
+    self.frontier_map = dict()
     self.open_list = cm.PrioritySet()
-    self.f_value = dict() # map a state id to its f-value vector (np.array)
+    self.f_value = dict()
     self.close_set = set()
     self.backtrack_dict = dict() # track parents
 
@@ -293,19 +293,17 @@ class MoAstarMAPFBase:
   def Search(self, search_limit=np.inf):
     """
     """
-    print(" NAMOA* Search begin ")
+    # print(" NAMOA* Search begin ")
     if self.heu_failed :
       print("[CAVEAT] MOA* direct terminates because heuristics computation failed...")
       output_res = ( 0, [], 0, -1, self.GetRemainTime() )
       return dict(), output_res
     # self.time_limit = time_limit
     tstart = time.perf_counter()
-
     self.all_visited_s[self.s_o.id] = self.s_o
     self.f_value[self.s_o.id] = self.s_o.cost_vec + self.GetHeuristic(self.s_o)
     self.open_list.add(np.sum(self.f_value[self.s_o.id]), self.s_o.id)
     self.AddToFrontier(self.s_o)
-  
     search_success = True
     rd = 0
     while(True):
@@ -321,11 +319,9 @@ class MoAstarMAPFBase:
         break
       pop_node = self.open_list.pop() # ( sum(f), sid )
       curr_s = self.all_visited_s[pop_node[1]]
-
       # filter state
       if self.FilterState(curr_s, self.f_value[curr_s.id]):
         continue
-
       # get neighbors
       ngh_ss, ngh_success = self.GetNeighbors(curr_s, tnow) # neighboring states
       if not ngh_success:
@@ -335,22 +331,17 @@ class MoAstarMAPFBase:
       # loop over neighbors
       for idx in range(len(ngh_ss)):
         ngh_s = ngh_ss[idx]
-
         if len(self.CollisionCheck(curr_s,ngh_s)):
           continue # discard state that are in conflict.
-
         # if reach here, joint state is collision free
         h_array = self.GetHeuristic(ngh_s)
         f_array = ngh_s.cost_vec + self.weight*h_array
-
         if self.FilterState(ngh_s, f_array):
           continue
-
         if (not self.Pruning(ngh_s, f_array)):
           self.AddToFrontier(ngh_s)
           self.backtrack_dict[ngh_s.id] = curr_s.id
           self.f_value[ngh_s.id] = ngh_s.cost_vec + self.weight*h_array
-          # print("f_vec:",self.f_value[ngh_s.id], ", sum:", np.sum(self.f_value[ngh_s.id]))
           self.open_list.add(np.sum(self.f_value[ngh_s.id]), ngh_s.id)
 
     if True:
@@ -393,22 +384,18 @@ class MoMapfPolicy(MoAstarMAPFBase):
     out_cost = np.zeros(self.cdim)
     for idx in range(self.num_robots): # loop over all robots
       if nloc[idx] != loc[idx]: # there is a move, not wait in place.
-        # print("cost_Grids", self.cost_grids)
         if len(self.cost_grids) > 0 and len(self.cost_grids) >= self.cdim :
           cy = int(np.floor(loc[idx]/self.nxt)) # ref x
           cx = int(loc[idx]%self.nxt) # ref y, 
-          # ! CAVEAT, this loc is ralavant to cost_grid, must be consistent with MOA* search.
-          # in MOA* search, use nloc, here, use loc (because of backwards search)
           for ic in range(self.cdim):
             out_cost[ic] = out_cost[ic] + self.cost_vecs[idx][ic]*self.cost_grids[ic][cy,cx]
         else:
           out_cost = out_cost + self.cost_vecs[idx]
       else: # robot stay in place.
-        if len(self.s_f.loc) == 0: # policy mode, no goal specified.
+        if len(self.s_f.loc) == 0:
           out_cost = out_cost + self.cost_vecs[idx]*1 # stay-in-place fixed cost
-        elif loc[idx] != self.s_f.loc[idx]: # nloc[idx] = loc[idx] != s_f.loc[idx], robot not reach goal.
-          out_cost = out_cost + self.cost_vecs[idx]*1 # np.ones((self.cdim)) # stay in place, fixed energy cost for every robot
-
+        elif loc[idx] != self.s_f.loc[idx]:
+          out_cost = out_cost + self.cost_vecs[idx]*1 
 
     return out_cost
 
