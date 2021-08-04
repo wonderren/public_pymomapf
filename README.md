@@ -5,7 +5,7 @@ Script run_example.py can serve as an entry point to the code.
 Feel free to use the code for research purposes.
 This repo is still under construction and more contents will be added.
 
-Papers and websites related to this repo:\
+Papers and websites related to this repo:
 
 * [1] [Homepage](https://wonderren.github.io/)
 
