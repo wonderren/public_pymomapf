@@ -1,7 +1,7 @@
 # public_pymomapf
-This repo contains the Python implementation of algorithms related to a multi-objective multi-agent path finding (MOMAPF) problem.
+This repo contains the Python implementation of algorithms (NAMOA*, MOM*, MO-CBS) related to a multi-objective multi-agent path finding (MOMAPF) problem.
 The main purpose of the code is to illustrate and verify the algorithm, and is not optimized for performance.
-Script run_example.py can serve as an entry point to the code.
+Script run_example.py can serve as an entry point to the planners.
 Feel free to use the code for research purposes.
 This repo is still under construction and more contents will be added.
 
