@@ -1,4 +1,8 @@
-
+"""
+Author: Zhongqiang (Richard) Ren
+Version@2021
+Remark: Entry point to planners.
+"""
 import context
 import time
 
@@ -8,11 +12,15 @@ import matplotlib.pyplot as plt
 import common 
 import mocbs
 import moastar # NAMOA*
+import momstar
 
 
-def RunMocbsToyExample():
+def RunToyExample():
   """
   """
+
+  # a tiny world with very simple cost vectors.
+
   grids = np.zeros((3,3))
   grids[0,:]=1
   grids[1,0]=1
@@ -29,19 +37,28 @@ def RunMocbsToyExample():
 
   cdim = len(cvecs[0])
 
+  ##################################################################
+  #### choose one of the planner to run by uncommenting the code ###
+  ##################################################################
+
   #### Invoke MO-CBS planner ###
-  # res = mocbs.RunMocbsMAPF(grids, sx, sy, gx, gy, cvecs, cgrids, cdim, 1.0, 0.0, 200, 10, 2)
+  # res = mocbs.RunMocbsMAPF(grids, sx, sy, gx, gy, cvecs, cgrids, cdim, 1.0, 0.0, np.inf, 10, 2)
 
   #### Invoke NAMOA* planner ###
-  res = moastar.RunMoAstarMAPF(grids, sx, sy, gx, gy, cvecs, cgrids, cdim, 1.0, 0.0, 200, 10)
+  # res = moastar.RunMoAstarMAPF(grids, sx, sy, gx, gy, cvecs, cgrids, cdim, 1.0, 0.0, np.inf, 10)
+
+  #### Invoke MOM* planner ###
+  res = momstar.RunMoMstarMAPF(grids, sx, sy, gx, gy, cvecs, cgrids, cdim, 1.0, 0.0, np.inf, 10)
 
   print(res)
-  return 
+  
+  return
+
 
 def main():
   """
   """
-  RunMocbsToyExample()
+  RunToyExample()
   return
 
 

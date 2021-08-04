@@ -1,4 +1,8 @@
-
+"""
+Author: Zhongqiang (Richard) Ren
+Version@2021
+Remark: some of the code is redundant and needs a clean up.
+"""
 import numpy as np
 import heapq as hpq
 import itertools as itt
