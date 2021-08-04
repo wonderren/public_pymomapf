@@ -12,9 +12,9 @@ Papers and websites related to this repo:\
 * [2] [Multi-objective Conflict-based Search for Multi-agent Path Finding](https://arxiv.org/pdf/2101.03805.pdf).\
 	**Zhongqiang Ren**, Sivakumar Rathinam, and Howie Choset.\
 	<i>IEEE International Conference on Robotics and Automation (ICRA)</i>, 2021.\
-	[bibtex](https://wonderren.github.io/files/bibtex_ren21momstar.txt)] 
+	[[bibtex](https://wonderren.github.io/files/bibtex_ren21momstar.txt)] 
 
 * [3] [Subdimensional Expansion for Multi-objective Multi-agent Path Finding](https://arxiv.org/pdf/2102.01353.pdf).\
 	**Zhongqiang Ren**, Sivakumar Rathinam, and Howie Choset.\
 	<i>IEEE Robotics and Automation Letters (RA-L)</i>, 2021.\
-	[bibtex](https://wonderren.github.io/files/bibtex_ren21mocbs.txt)] 
+	[[bibtex](https://wonderren.github.io/files/bibtex_ren21mocbs.txt)] 
