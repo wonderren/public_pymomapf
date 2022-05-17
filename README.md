@@ -2,7 +2,7 @@
 This repo contains the Python implementation of algorithms (NAMOA*, MOM*, MO-CBS) related to a multi-objective multi-agent path finding (MOMAPF) problem.
 The main purpose of the code is to illustrate and verify the algorithm, and is not optimized for performance.
 Script run_example.py can serve as an entry point to the planners.
-This repository is no more maintained and is not recommended for usage. This repository is now superseded by a more recent [C++ implementation](https://github.com/wonderren/public_cppmomapf).
+**This repository is no more maintained and is not recommended for usage. This repository is now superseded by a more recent [C++ implementation](https://github.com/wonderren/public_cppmomapf).**
 
 Papers and websites related to this repo. Please cite the corresponding papers if you find anything in this repository helpful.
 
